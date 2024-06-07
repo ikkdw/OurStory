@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">OurStory</string>
+    <string name="signup">Daftar</string>
+    <string name="login">Masuk</string>
+    <string name="message_welcome_page">Ingin untuk membagikan cerita anda dengan yang lainnya? Ayo kita lakukan!</string>
+    <string name="title_welcome_page">Selamat datang di OurStory!</string>
+    <string name="title_signup_page">Masukkan data pribadimu dibawah ini!</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="message_login_page">Kamu perlu masuk terlebih dahulu!</string>
+    <string name="title_login_page">Siap untuk membagikan ceritamu?</string>
+    <string name="name">Nama</string>
+    <string name="message_main_page">Selamat bersenang-senang membagikan ceritamu!</string>
+    <string name="greeting">Halo %1$s,</string>
+    <string name="logout">Keluar</string>
+    <string name="login_image">Login Image</string>
+    <string name="main_image">Main Image</string>
+    <string name="register_image">Register Image</string>
+    <string name="welcome_image">Welcome Image</string>
+    <string name="enter_your_name">Masukkan Namamu</string>
+    <string name="enter_your_email">Masukkan Emailmu</string>
+    <string name="upload_story">UNGGAH CERITA</string>
+    <string name="story_image">Story Image</string>
+    <string name="username">Username</string>
+    <string name="enter_your_story_description">Masukkan Deskripsi Cerita Anda</string>
+    <string name="camera">KAMERA</string>
+    <string name="gallery">GALERI</string>
+    <string name="upload">UNGGAH</string>
+    <string name="capture_image">Tangkap Gambar</string>
+    <string name="switch_camera">Tukar Kamera</string>
+    <string name="no_image_warning">Tidak Ada Gambar Dipilih!</string>
+</resources>

@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.UploadActivity">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <com.google.android.material.progressindicator.LinearProgressIndicator
+            android:id="@+id/progressIndicator"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:indeterminate="true"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="12dp">
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/image"
+            android:layout_width="match_parent"
+            android:layout_height="320dp"
+            app:cardCornerRadius="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/previewImageView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/ic_place_holder"
+                android:contentDescription="@string/story_image"/>
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <LinearLayout
+            android:id="@+id/buttonLayout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="@id/image"
+            app:layout_constraintStart_toStartOf="@id/image"
+            app:layout_constraintTop_toBottomOf="@id/image">
+
+            <Button
+                android:id="@+id/cameraButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
+                android:layout_weight="1"
+                android:textStyle="bold"
+                android:backgroundTint="@color/brown"
+                style="?android:attr/buttonBarStyle"
+                android:text="@string/camera" />
+
+            <Button
+                android:id="@+id/galleryButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_weight="1"
+                android:textStyle="bold"
+                android:backgroundTint="@color/brown"
+                style="?android:attr/buttonBarStyle"
+                android:text="@string/gallery" />
+
+        </LinearLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/descriptionInputLayout"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_marginTop="20dp"
+            android:hint="@string/enter_your_story_description"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/buttonLayout">
+
+            <EditText
+                android:id="@+id/descriptionText"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="start"
+                android:inputType="textMultiLine"
+                android:scrollbars="vertical"
+                tools:ignore="Autofill,LabelFor" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <Button
+            android:id="@+id/uploadButton"
+            android:layout_width="320dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="18dp"
+            android:layout_weight="1"
+            android:textStyle="bold"
+            android:text="@string/upload"
+            android:backgroundTint="@color/brown"
+            style="?android:attr/buttonBarStyle"
+            app:layout_constraintEnd_toEndOf="@id/descriptionInputLayout"
+            app:layout_constraintStart_toStartOf="@id/descriptionInputLayout"
+            app:layout_constraintTop_toBottomOf="@id/descriptionInputLayout" />
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            app:layout_constraintBottom_toBottomOf="@+id/uploadButton"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/buttonLayout"
+            app:layout_constraintTop_toTopOf="@+id/image"
+            android:visibility ="gone"
+            tools:visibility="visible"/>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
+</ScrollView>

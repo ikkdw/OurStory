@@ -1,0 +1,32 @@
+<resources>
+    <string name="app_name">OurStory</string>
+    <string name="signup">Register</string>
+    <string name="login">Login</string>
+    <string name="message_welcome_page">Want to share your story with the others? Let\'s do it!</string>
+    <string name="title_welcome_page">Welcome to OurStory!</string>
+    <string name="title_signup_page">Complete your personal information under here!</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="message_login_page">You need to login first!</string>
+    <string name="title_login_page">Ready for sharing your story?</string>
+    <string name="name">Name</string>
+    <string name="message_main_page">Have fun sharing your story!</string>
+    <string name="greeting">Hello %1$s,</string>
+    <string name="logout">Logout</string>
+    <string name="login_image">Login Image</string>
+    <string name="main_image">Main Image</string>
+    <string name="register_image">Register Image</string>
+    <string name="welcome_image">Welcome Image</string>
+    <string name="enter_your_name">Enter Your Name</string>
+    <string name="enter_your_email">Enter Your Email</string>
+    <string name="upload_story">UPLOAD STORY</string>
+    <string name="story_image">Story Image</string>
+    <string name="username">Username</string>
+    <string name="enter_your_story_description">Enter Your Story Description</string>
+    <string name="camera">CAMERA</string>
+    <string name="gallery">GALLERY</string>
+    <string name="upload">UPLOAD</string>
+    <string name="capture_image">Capture Image</string>
+    <string name="switch_camera">Switch Camera</string>
+    <string name="no_image_warning">No Image Selected!</string>
+</resources>
