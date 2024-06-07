@@ -1,7 +1,6 @@
 package com.dicoding.ourstory.ui.viewmodel
 
 import android.util.Log
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -13,8 +12,6 @@ import okhttp3.RequestBody
 class AddStoryViewModel(private val repository: Repository) : ViewModel() {
 
     private val _uploadSuccess = MutableLiveData<Boolean>()
-    val uploadSuccess: LiveData<Boolean>
-        get() = _uploadSuccess
 
     fun uploadStory(photo: MultipartBody.Part, description: RequestBody, token: String) {
         viewModelScope.launch {

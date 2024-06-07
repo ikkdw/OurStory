@@ -14,6 +14,7 @@ android {
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
+        buildConfigField ("String", "BASE_URL", "\"https://story-api.dicoding.dev/v1/\"")
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -56,10 +57,15 @@ dependencies {
 
     implementation(libs.retrofit)
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+    //noinspection UseTomlInstead
     implementation("com.squareup.okhttp3:logging-interceptor:4.11.0")
-    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.1")
+    //noinspection UseTomlInstead
+    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.8.1")
+    //noinspection UseTomlInstead
     implementation("com.github.bumptech.glide:glide:4.16.0")
+    //noinspection UseTomlInstead
     implementation("androidx.datastore:datastore-preferences:1.1.1")
+    //noinspection UseTomlInstead
     implementation("androidx.camera:camera-view:1.3.3")
     implementation(libs.androidx.camera.core)
     implementation(libs.androidx.camera.lifecycle)
@@ -68,5 +74,6 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
-    implementation("com.google.android.gms:play-services-maps:18.0.0")
+    //noinspection UseTomlInstead
+    implementation("com.google.android.gms:play-services-maps:18.2.0")
 }

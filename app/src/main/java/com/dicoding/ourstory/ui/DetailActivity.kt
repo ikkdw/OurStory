@@ -5,7 +5,6 @@ import android.util.Log
 import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.Observer
 import com.bumptech.glide.Glide
 import com.dicoding.ourstory.databinding.ActivityDetailBinding
 import com.dicoding.ourstory.ui.viewmodel.DetailViewModel
@@ -28,25 +27,29 @@ class DetailActivity : AppCompatActivity() {
 
         viewModel.getStoryDetail(storyId, token)
         Log.d("Check", "$storyId, $token")
-        viewModel.storyState.observe(this, Observer { state ->
+        viewModel.storyState.observe(this) { state ->
             when (state) {
                 is DetailViewModel.StoryDetailState.Loading -> {
                     showLoading(true)
                 }
+
                 is DetailViewModel.StoryDetailState.Success -> {
                     val story = state.detailResponse.story
-                    binding.tvName.text = story?.name
-                    binding.tvDate.text = story?.createdAt
-                    binding.tvDescription.text = story?.description
-                    Glide.with(this).load(story?.photoUrl).into(binding.ivStory)
-                    showLoading(false)
+                    binding.apply {
+                        binding.tvName.text = story?.name
+                        binding.tvDate.text = story?.createdAt
+                        binding.tvDescription.text = story?.description
+                        Glide.with(DetailActivity()).load(story?.photoUrl).into(binding.ivStory)
+                        showLoading(false)
+                    }
                 }
+
                 is DetailViewModel.StoryDetailState.Error -> {
                     showLoading(false)
                     state.exception.toString()
                 }
             }
-        })
+        }
     }
     private fun showLoading(isLoading: Boolean) {
 

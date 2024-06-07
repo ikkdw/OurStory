@@ -3,23 +3,21 @@ package com.dicoding.ourstory.ui
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
 import android.content.Intent
-import android.os.Build
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
 import android.view.WindowInsets
-import android.view.WindowManager
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.dicoding.ourstory.data.model.UserModel
 import com.dicoding.ourstory.databinding.ActivityLoginBinding
-import com.dicoding.ourstory.ui.viewmodel.LoginViewModel
 import com.dicoding.ourstory.ui.custom.EditText
 import com.dicoding.ourstory.ui.custom.EditTextEmail
 import com.dicoding.ourstory.ui.custom.LoginButton
+import com.dicoding.ourstory.ui.viewmodel.LoginViewModel
 import com.dicoding.ourstory.ui.viewmodel.factory.ViewModelFactory
 import kotlinx.coroutines.launch
 
@@ -43,15 +41,7 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun setupView() {
-        @Suppress("DEPRECATION")
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            window.insetsController?.hide(WindowInsets.Type.statusBars())
-        } else {
-            window.setFlags(
-                WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN
-            )
-        }
+        window.insetsController?.hide(WindowInsets.Type.statusBars())
         loginButton = binding.loginButton
         editTextEmail = binding.emailEditText
         editText = binding.passwordEditText

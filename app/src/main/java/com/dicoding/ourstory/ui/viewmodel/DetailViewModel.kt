@@ -15,7 +15,7 @@ class DetailViewModel(private val repository: Repository) : ViewModel() {
     val storyState: LiveData<StoryDetailState> = _storyState
 
     sealed class StoryDetailState {
-        object Loading : StoryDetailState()
+        data object Loading : StoryDetailState()
         data class Success(val detailResponse: DetailStoryResponse) : StoryDetailState()
         data class Error(val exception: Exception) : StoryDetailState()
     }
