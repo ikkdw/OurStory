@@ -1,5 +1,10 @@
 package com.dicoding.ourstory.data
 
+import androidx.lifecycle.LiveData
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.PagingData
+import androidx.paging.liveData
 import com.dicoding.ourstory.data.model.UserModel
 import com.dicoding.ourstory.data.model.UserPreferenceModel
 import com.dicoding.ourstory.data.remote.auth.ApiService
@@ -8,11 +13,12 @@ import com.dicoding.ourstory.data.remote.auth.LoginResponse
 import com.dicoding.ourstory.data.remote.auth.RegisterResponse
 import com.dicoding.ourstory.data.remote.story.GetStoryResponse
 import com.dicoding.ourstory.data.remote.story.DetailStoryResponse
+import com.dicoding.ourstory.data.remote.story.ListStoryItem
 import kotlinx.coroutines.flow.Flow
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 
-class Repository private constructor(
+open class Repository private constructor(
     private val apiService: ApiService,
     private val userPreference: UserPreferenceModel,
 ) {
@@ -52,6 +58,33 @@ class Repository private constructor(
         return apiService.getStoriesWithLocation(token)
     }
 
+    fun getStory(): LiveData<PagingData<ListStoryItem>> {
+        val pagingSourceFactory = {
+            StoryPagingSource(apiService, token = "String")
+        }
+
+        return Pager(
+            config = PagingConfig(
+                pageSize = 5
+            ),
+            pagingSourceFactory = pagingSourceFactory
+        ).liveData
+    }
+
+//    fun getStory(): LiveData<PagingData<ListStoryItem>> {
+//        @OptIn(ExperimentalPagingApi::class)
+//        return Pager(
+//            config = PagingConfig(
+//                pageSize = 5
+//            ),
+//            remoteMediator = StoryRemoteMediator(apiService),
+//            pagingSourceFactory = {
+//                StoryPagingSource(apiService)
+//                storyDatabase.storyDao().getAllStory()
+//            }
+//        ).liveData
+//    }
+
     suspend fun uploadStory(photo: MultipartBody.Part, description: RequestBody, token: String): Boolean {
         try {
             val response = apiService.uploadStory(photo, description, "Bearer $token")
@@ -67,10 +100,12 @@ class Repository private constructor(
         private var instance: Repository? = null
         fun getInstance(
             apiService: ApiService,
-            userPreference: UserPreferenceModel,
+            userPreference: UserPreferenceModel
         ): Repository =
             instance ?: synchronized(this) {
+//                instance ?: Repository(apiService, userPreference, storyDatabase)
                 instance ?: Repository(apiService, userPreference)
             }.also { instance = it }
     }
 }
+//StoryDatabase

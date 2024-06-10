@@ -23,7 +23,7 @@ pagingCommonAndroid = "3.3.0"
 coreTesting = "2.2.0"
 kotlinxCoroutinesTest = "1.7.3"
 mockitoCore = "4.4.0"
-mockitoInline = "4.4.0"
+mockitoInline = "5.2.0"
 
 [libraries]
 androidx-activity-ktx = { module = "androidx.activity:activity-ktx", version.ref = "activityKtx" }

@@ -3,6 +3,7 @@ package com.dicoding.ourstory.data.remote.auth
 import com.dicoding.ourstory.data.remote.story.DetailStoryResponse
 import com.dicoding.ourstory.data.remote.story.GetStoryResponse
 import com.dicoding.ourstory.data.remote.story.AddStoryResponse
+import com.dicoding.ourstory.data.remote.story.ListStoryItem
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.http.*
@@ -50,4 +51,10 @@ interface ApiService {
         @Header("Authorization") token: String,
         @Query("location") location : Int = 1,
     ): GetStoryResponse
+
+//    @GET("list")
+//    suspend fun getStory(
+//        @Query("page") page: Int,
+//        @Query("size") size: Int
+//    ): List<ListStoryItem>
 }

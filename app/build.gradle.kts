@@ -67,8 +67,8 @@ dependencies {
 
     testImplementation(libs.androidx.core.testing)
     testImplementation(libs.kotlinx.coroutines.test)
-    testImplementation("org.mockito:mockito-core:4.4.0")
-    testImplementation("org.mockito:mockito-inline:4.4.0")
+    testImplementation(libs.mockito.core)
+    testImplementation(libs.mockito.inline)
 
     implementation(libs.retrofit)
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
@@ -87,6 +87,7 @@ dependencies {
     implementation(libs.androidx.room.common)
     implementation(libs.androidx.room.ktx)
     implementation(libs.androidx.paging.common.android)
+    implementation ("androidx.lifecycle:lifecycle-livedata-ktx:2.2.0")
 
 
     testImplementation(libs.junit)
