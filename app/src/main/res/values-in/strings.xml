@@ -16,14 +16,11 @@
     <string name="satellite_type">Satelit</string>
     <string name="terrain_type">Medan</string>
     <string name="hybrid_type">Campuran</string>
-    <string name="greeting">Halo %1$s,</string>
     <string name="logout">Keluar</string>
     <string name="login_image">Login Image</string>
     <string name="main_image">Main Image</string>
     <string name="register_image">Register Image</string>
     <string name="welcome_image">Welcome Image</string>
-    <string name="enter_your_name">Masukkan Namamu</string>
-    <string name="enter_your_email">Masukkan Emailmu</string>
     <string name="upload_story">UNGGAH CERITA</string>
     <string name="story_image">Story Image</string>
     <string name="username">Username</string>
@@ -31,7 +28,5 @@
     <string name="camera">KAMERA</string>
     <string name="gallery">GALERI</string>
     <string name="upload">UNGGAH</string>
-    <string name="capture_image">Tangkap Gambar</string>
-    <string name="switch_camera">Tukar Kamera</string>
     <string name="no_image_warning">Tidak Ada Gambar Dipilih!</string>
 </resources>
