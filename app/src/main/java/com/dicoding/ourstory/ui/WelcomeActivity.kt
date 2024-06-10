@@ -8,16 +8,31 @@ import android.os.Bundle
 import android.view.View
 import android.view.WindowInsets
 import android.view.WindowManager
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.dicoding.ourstory.databinding.ActivityWelcomeBinding
+import com.dicoding.ourstory.ui.viewmodel.WelcomeViewModel
+import com.dicoding.ourstory.ui.viewmodel.factory.ViewModelFactory
 
 class WelcomeActivity : AppCompatActivity() {
     private lateinit var binding: ActivityWelcomeBinding
+    private val viewModel by viewModels<WelcomeViewModel> {
+        ViewModelFactory.getInstance(this)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityWelcomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        viewModel.getSession().observe(this) { user ->
+            if (user.isLogin) {
+                val intent = Intent(this, MainActivity::class.java)
+                intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+                startActivity(intent)
+                finish()
+            }
+        }
 
         setupView()
         setupAction()
@@ -32,11 +47,14 @@ class WelcomeActivity : AppCompatActivity() {
 
     private fun setupAction() {
         binding.loginButton.setOnClickListener {
-            startActivity(Intent(this, LoginActivity::class.java))
+            val intent = Intent(this, LoginActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+            startActivity(intent)
         }
 
         binding.signupButton.setOnClickListener {
             startActivity(Intent(this, RegisterActivity::class.java))
+            startActivity(intent)
         }
     }
 

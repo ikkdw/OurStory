@@ -12,6 +12,10 @@
     <string name="title_login_page">Siap untuk membagikan ceritamu?</string>
     <string name="name">Nama</string>
     <string name="message_main_page">Selamat bersenang-senang membagikan ceritamu!</string>
+    <string name="maps">PETA</string>
+    <string name="satellite_type">Satelit</string>
+    <string name="terrain_type">Medan</string>
+    <string name="hybrid_type">Campuran</string>
     <string name="greeting">Halo %1$s,</string>
     <string name="logout">Keluar</string>
     <string name="login_image">Login Image</string>

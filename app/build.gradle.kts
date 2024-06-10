@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
     id("kotlin-parcelize")
+    alias(libs.plugins.google.android.libraries.mapsplatform.secrets.gradle.plugin)
 }
 
 android {
@@ -34,14 +35,23 @@ android {
     }
     kotlinOptions {
         jvmTarget = "1.8"
+        freeCompilerArgs = freeCompilerArgs + listOf("-Xopt-in=kotlin.RequiresOptIn")
     }
     buildFeatures {
         viewBinding = true
         buildConfig = true
     }
+    testOptions {
+        unitTests.isReturnDefaultValues = true
+        animationsDisabled = true
+    }
 }
 
 dependencies {
+
+
+    androidTestImplementation(libs.androidx.core.testing)
+    androidTestImplementation(libs.kotlinx.coroutines.test)
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
@@ -52,8 +62,13 @@ dependencies {
     implementation(libs.androidx.lifecycle.livedata.ktx)
     implementation(libs.androidx.activity.ktx)
     implementation(libs.androidx.constraintlayout)
-
+    implementation(libs.androidx.paging.runtime.ktx)
     implementation(libs.androidx.datastore.preferences)
+
+    testImplementation(libs.androidx.core.testing)
+    testImplementation(libs.kotlinx.coroutines.test)
+    testImplementation("org.mockito:mockito-core:4.4.0")
+    testImplementation("org.mockito:mockito-inline:4.4.0")
 
     implementation(libs.retrofit)
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
@@ -69,6 +84,9 @@ dependencies {
     implementation("androidx.camera:camera-view:1.3.3")
     implementation(libs.androidx.camera.core)
     implementation(libs.androidx.camera.lifecycle)
+    implementation(libs.androidx.room.common)
+    implementation(libs.androidx.room.ktx)
+    implementation(libs.androidx.paging.common.android)
 
 
     testImplementation(libs.junit)

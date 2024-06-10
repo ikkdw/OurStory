@@ -6,17 +6,36 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
+import androidx.paging.ExperimentalPagingApi
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.PagingData
+import androidx.paging.liveData
 import com.dicoding.ourstory.data.Repository
+import com.dicoding.ourstory.data.StoryPagingSource
 import com.dicoding.ourstory.data.model.UserModel
+import com.dicoding.ourstory.data.remote.auth.ApiService
 import com.dicoding.ourstory.data.remote.story.GetStoryResponse
+import com.dicoding.ourstory.data.remote.story.ListStoryItem
 import kotlinx.coroutines.launch
 
-class MainViewModel(private val repository: Repository) : ViewModel() {
+class MainViewModel(private val repository: Repository, private val apiService: ApiService) : ViewModel() {
     private val _listStory = MutableLiveData<GetStoryResponse>()
     val listStory: MutableLiveData<GetStoryResponse> = _listStory
 
     fun getSession(): LiveData<UserModel> {
         return repository.getSession().asLiveData()
+    }
+
+    fun getStory(token: String): LiveData<PagingData<ListStoryItem>> {
+        return Pager(
+            config = PagingConfig(
+                pageSize = 5
+            ),
+            pagingSourceFactory = {
+                StoryPagingSource(apiService, token)
+            }
+        ).liveData
     }
 
     fun logout() {

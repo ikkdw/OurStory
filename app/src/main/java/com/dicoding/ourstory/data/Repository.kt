@@ -14,7 +14,7 @@ import okhttp3.RequestBody
 
 class Repository private constructor(
     private val apiService: ApiService,
-    private val userPreference: UserPreferenceModel
+    private val userPreference: UserPreferenceModel,
 ) {
 
     suspend fun saveSession(user: UserModel) {
@@ -47,6 +47,11 @@ class Repository private constructor(
         return apiService.getStoryDetail(storyId, token)
     }
 
+    suspend fun getStoryLocation(token: String): GetStoryResponse {
+        val apiService = ApiConfig.getApiService()
+        return apiService.getStoriesWithLocation(token)
+    }
+
     suspend fun uploadStory(photo: MultipartBody.Part, description: RequestBody, token: String): Boolean {
         try {
             val response = apiService.uploadStory(photo, description, "Bearer $token")
@@ -62,7 +67,7 @@ class Repository private constructor(
         private var instance: Repository? = null
         fun getInstance(
             apiService: ApiService,
-            userPreference: UserPreferenceModel
+            userPreference: UserPreferenceModel,
         ): Repository =
             instance ?: synchronized(this) {
                 instance ?: Repository(apiService, userPreference)

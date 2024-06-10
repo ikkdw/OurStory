@@ -97,8 +97,6 @@ class EditTextEmail @JvmOverloads constructor(
     }
 
     private fun setButtonDrawables(startOfTheText: Drawable? = null, topOfTheText:Drawable? = null, endOfTheText:Drawable? = null, bottomOfTheText: Drawable? = null){
-        // Sets the Drawables (if any) to appear to the left of,
-        // above, to the right of, and below the text.
         setCompoundDrawablesWithIntrinsicBounds(startOfTheText, topOfTheText, endOfTheText, bottomOfTheText)
     }
 

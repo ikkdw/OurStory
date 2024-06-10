@@ -24,4 +24,10 @@
     <string name="gallery">GALLERY</string>
     <string name="upload">UPLOAD</string>
     <string name="no_image_warning">No Image Selected!</string>
+    <string name="maps">MAPS</string>
+    <string name="title_activity_maps" translatable="false">MapsActivity</string>
+    <string name="normal_type" translatable="false">Normal</string>
+    <string name="satellite_type">Satellite</string>
+    <string name="terrain_type">Terrain</string>
+    <string name="hybrid_type">Hybrid</string>
 </resources>

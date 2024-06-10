@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.dicoding.ourstory.data.Repository
 import com.dicoding.ourstory.data.remote.story.DetailStoryResponse
+import com.dicoding.ourstory.data.remote.story.Story
 import kotlinx.coroutines.launch
 
 class DetailViewModel(private val repository: Repository) : ViewModel() {
@@ -16,7 +17,7 @@ class DetailViewModel(private val repository: Repository) : ViewModel() {
 
     sealed class StoryDetailState {
         data object Loading : StoryDetailState()
-        data class Success(val detailResponse: DetailStoryResponse) : StoryDetailState()
+        data class Success(val detailResponse: Story?) : StoryDetailState()
         data class Error(val exception: Exception) : StoryDetailState()
     }
 
@@ -25,7 +26,7 @@ class DetailViewModel(private val repository: Repository) : ViewModel() {
             _storyState.value = StoryDetailState.Loading
             try {
                 val successResponse = repository.getStoryDetail(storyId, "Bearer $token")
-                _storyState.value = StoryDetailState.Success(successResponse)
+                _storyState.value = StoryDetailState.Success(successResponse.story)
                 Log.d("Get Story", "$successResponse")
             } catch (e: Exception) {
                 _storyState.value = StoryDetailState.Error(e)

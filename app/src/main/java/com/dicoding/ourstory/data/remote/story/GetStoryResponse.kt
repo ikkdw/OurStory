@@ -12,7 +12,11 @@ data class GetStoryResponse(
 
 	@field:SerializedName("message")
 	val message: String? = null
-)
+) {
+	fun isNullOrEmpty(): Boolean {
+		return listStory.isEmpty()
+	}
+}
 
 data class ListStoryItem(
 

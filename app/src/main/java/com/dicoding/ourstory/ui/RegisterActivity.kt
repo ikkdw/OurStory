@@ -63,9 +63,10 @@ class RegisterActivity : AppCompatActivity() {
             Log.d("Check", email)
             lifecycleScope.launch {
                 val response = viewModel.register(name, email, password)
-                if (!response.error!!) {
+                if (response.message == "User created") {
                     showToast(response.message.toString())
-                    Intent(this@RegisterActivity, WelcomeActivity::class.java)
+                    val intent= Intent(this@RegisterActivity, WelcomeActivity::class.java)
+                    startActivity(intent)
                     Log.d("Success!", "${response.message}")
                 } else {
                     showToast(response.message.toString())

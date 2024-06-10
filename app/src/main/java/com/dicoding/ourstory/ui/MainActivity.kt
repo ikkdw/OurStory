@@ -32,17 +32,9 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        viewModel.getSession().observe(this) { user ->
-            if (!user.isLogin) {
-                startActivity(Intent(this, WelcomeActivity::class.java))
-                finish()
-            }
-        }
-
         setupView()
         setupAction()
         playAnimation()
-        setupRecyclerView()
         observeSession()
 
         binding.uploadButton.setOnClickListener {
@@ -50,6 +42,19 @@ class MainActivity : AppCompatActivity() {
             intent.putExtra(UploadActivity.EXTRA_TOKEN, token)
             startActivity(intent)
         }
+
+
+
+        binding.mapsButton.setOnClickListener {
+            val intent = Intent(this@MainActivity, MapsActivity::class.java)
+            startActivity(intent)
+        }
+    }
+
+    override fun onResume(){
+        super.onResume()
+        val token = "Bearer $token"
+        getStory(token)
     }
 
     private fun setupView() {
@@ -84,42 +89,30 @@ class MainActivity : AppCompatActivity() {
 
     private fun getStory(token: String) {
         lifecycleScope.launch {
-            viewModel.getAllListStory(token)
+            viewModel.getStory(token)
         }
     }
 
     private fun observeSession() {
         viewModel.getSession().observe(this) { user ->
             if (!user.isLogin) {
-                startActivity(Intent(this, WelcomeActivity::class.java))
+                val intent = Intent(this@MainActivity, WelcomeActivity::class.java)
+                startActivity(intent)
                 finish()
             } else {
                 token = user.token
-                getStory(token)
+                val token2 = "Bearer $token"
+                getData(token2)
             }
         }
     }
 
-    private fun setupRecyclerView() {
-        storyAdapter = StoryAdapter(emptyList())
+    private fun getData(token: String) {
+        val adapter = StoryAdapter()
+        binding.rvStory.adapter = adapter
         binding.rvStory.layoutManager = LinearLayoutManager(this)
-        binding.rvStory.setHasFixedSize(true)
-        binding.rvStory.adapter = storyAdapter
-
-        viewModel.listStory.observe(this) {
-            if (it != null) {
-                val adapter = StoryAdapter(it.listStory)
-                binding.rvStory.adapter = adapter
-                adapter.setOnItemClickCallback(object : StoryAdapter.OnItemClickCallback {
-                    override fun onItemClicked(data: ListStoryItem) {
-                        val intent = Intent(this@MainActivity, DetailActivity::class.java)
-                        intent.putExtra(DetailActivity.EXTRA_ID, data.id)
-                        intent.putExtra(DetailActivity.EXTRA_TOKEN, token)
-                        Log.d("id + token", "${data.id} $token")
-                        startActivity(intent)
-                    }
-                })
-            }
+        viewModel.getStory(token).observe(this){data->
+            adapter.submitData(lifecycle, data)
         }
     }
 }
