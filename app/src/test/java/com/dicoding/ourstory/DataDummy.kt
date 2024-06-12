@@ -8,13 +8,13 @@ object DataDummy {
         val items: MutableList<ListStoryItem> = arrayListOf()
         for (i in 0..100) {
             val story = ListStoryItem(
-                photoUrl = "https://dicoding-assets.sgp1.cdn.digitaloceanspaces.com/blog/wp-content/uploads/2015/12/IMG_0223.jpg",
-                createdAt = "2024-05-07T05:43:15.759Z",
+                photoUrl = "photo : $i",
+                createdAt = "date : $i",
                 name = "Dicoding $i",
                 description = "IT Course  $i",
-                lon = -6.89549696359841,
+                i.toDouble(),
                 id = "id $i",
-                lat = 107.63382340858696,
+                i.toDouble(),
             )
             items.add(story)
         }

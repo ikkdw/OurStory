@@ -38,7 +38,6 @@ class WelcomeActivity : AppCompatActivity() {
     }
 
     private fun setupView() {
-        @Suppress("DEPRECATION")
         window.insetsController?.hide(WindowInsets.Type.statusBars())
         supportActionBar?.hide()
     }

@@ -70,12 +70,8 @@ dependencies {
     testImplementation(libs.mockito.core)
     testImplementation(libs.mockito.inline)
 
-    testImplementation (libs.mockwebserver)
-    testImplementation (libs.truth)
-    implementation (libs.gson)
-
     implementation(libs.retrofit)
-    implementation(libs.converter.gson)
+    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
     //noinspection UseTomlInstead
     implementation("com.squareup.okhttp3:logging-interceptor:4.11.0")
     //noinspection UseTomlInstead
@@ -91,8 +87,7 @@ dependencies {
     implementation(libs.androidx.room.common)
     implementation(libs.androidx.room.ktx)
     implementation(libs.androidx.paging.common.android)
-    implementation (libs.androidx.lifecycle.livedata.ktx)
-
+    implementation ("androidx.lifecycle:lifecycle-livedata-ktx:2.2.0")
 
 
     testImplementation(libs.junit)

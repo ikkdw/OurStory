@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.ListUpdateCallback
 import com.dicoding.ourstory.DataDummy
 import com.dicoding.ourstory.MainDispatcherRule
 import com.dicoding.ourstory.data.Repository
-import com.dicoding.ourstory.data.remote.auth.ApiService
 import com.dicoding.ourstory.data.remote.story.ListStoryItem
 import com.dicoding.ourstory.getOrAwaitValue
 import com.dicoding.ourstory.ui.adapter.StoryAdapter
@@ -19,6 +18,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert
+import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -37,21 +37,24 @@ class MainViewModelTest {
     val mainDispatcherRules = MainDispatcherRule()
 
     @Mock
-    private lateinit var mockApi: ApiService
-
-    @Mock
     private lateinit var mockRepository: Repository
+
+    @Before
+    fun setup() {
+
+    }
 
     @Test
     fun `when Get Story Should Not Null and Return Data`() = runTest {
         val dummyStory = DataDummy.generateDummyStoryResponse()
         val data: PagingData<ListStoryItem> = StoryPagingSource.snapshot(dummyStory)
         val expectedStory = MutableLiveData<PagingData<ListStoryItem>>()
+
         expectedStory.value = data
-        val token: String = "token"
+        val token = "token"
         Mockito.`when`(mockRepository.getStory(token)).thenReturn(expectedStory)
 
-        val mainViewModel = MainViewModel(mockRepository, mockApi)
+        val mainViewModel = MainViewModel(mockRepository)
         val actualStory: PagingData<ListStoryItem> = mainViewModel.getStory(token).getOrAwaitValue()
 
         val differ = AsyncPagingDataDiffer(
@@ -71,10 +74,10 @@ class MainViewModelTest {
         val data: PagingData<ListStoryItem> = PagingData.from(emptyList())
         val expectedStory = MutableLiveData<PagingData<ListStoryItem>>()
         expectedStory.value = data
-        val token: String = "token"
+        val token = "token"
         Mockito.`when`(mockRepository.getStory(token)).thenReturn(expectedStory)
 
-        val mainViewModel = MainViewModel(mockRepository, mockApi)
+        val mainViewModel = MainViewModel(mockRepository)
         val actualStory: PagingData<ListStoryItem> = mainViewModel.getStory(token).getOrAwaitValue()
 
         val differ = AsyncPagingDataDiffer(

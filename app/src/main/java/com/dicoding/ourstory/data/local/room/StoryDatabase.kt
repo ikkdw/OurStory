@@ -5,7 +5,6 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.dicoding.ourstory.data.local.entity.RemoteKeysDao
-import com.dicoding.ourstory.data.local.entity.StoryDao
 import com.dicoding.ourstory.data.remote.auth.RemoteKeys
 import com.dicoding.ourstory.data.remote.story.ListStoryItem
 
@@ -17,7 +16,6 @@ import com.dicoding.ourstory.data.remote.story.ListStoryItem
 
 abstract class StoryDatabase : RoomDatabase() {
 
-    abstract fun storyDao(): StoryDao
     abstract fun remoteKeysDao(): RemoteKeysDao
 
     companion object {

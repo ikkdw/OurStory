@@ -11,7 +11,6 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.dicoding.ourstory.data.remote.story.ListStoryItem
 import com.dicoding.ourstory.databinding.ActivityMainBinding
 import com.dicoding.ourstory.ui.adapter.StoryAdapter
 import com.dicoding.ourstory.ui.viewmodel.MainViewModel
@@ -23,7 +22,6 @@ class MainActivity : AppCompatActivity() {
         ViewModelFactory.getInstance(this)
     }
     private lateinit var binding: ActivityMainBinding
-    private lateinit var storyAdapter: StoryAdapter
 
     private var token: String = ""
 
@@ -51,11 +49,11 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    override fun onResume(){
-        super.onResume()
-        val token = "Bearer $token"
-        getStory(token)
-    }
+//    override fun onResume(){
+//        super.onResume()
+//        val token = "Bearer $token"
+//        getStory(token)
+//    }
 
     private fun setupView() {
         window.insetsController?.hide(WindowInsets.Type.statusBars())
@@ -108,11 +106,17 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun getData(token: String) {
+//        lifecycleScope.launch {
+//            viewModel.getStory(token)
+//            Log.d("MainActivityToken", "token : $token")
+//        }
+
         val adapter = StoryAdapter()
-        binding.rvStory.adapter = adapter
         binding.rvStory.layoutManager = LinearLayoutManager(this)
-        viewModel.getStory(token).observe(this){data->
-            adapter.submitData(lifecycle, data)
+        binding.rvStory.adapter = adapter
+        viewModel.getStory(token).observe(this){
+            adapter.submitData(lifecycle, it)
+            Log.d("MainActivityToken", "$it")
         }
     }
 }

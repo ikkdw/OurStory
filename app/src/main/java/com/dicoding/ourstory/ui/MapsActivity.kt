@@ -18,9 +18,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.graphics.drawable.DrawableCompat
 import com.dicoding.ourstory.R
-import com.dicoding.ourstory.data.model.PlaceModel
 import com.dicoding.ourstory.data.remote.story.ListStoryItem
-
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback

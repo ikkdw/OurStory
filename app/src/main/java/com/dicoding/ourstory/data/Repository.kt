@@ -1,5 +1,6 @@
 package com.dicoding.ourstory.data
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
@@ -62,7 +63,7 @@ open class Repository private constructor(
         val pagingSourceFactory = {
             StoryPagingSource(apiService, token)
         }
-
+        Log.d("Repository", "token : $token")
         return Pager(
             config = PagingConfig(
                 pageSize = 5
