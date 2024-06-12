@@ -47,12 +47,12 @@ class MainViewModelTest {
         val dummyStory = DataDummy.generateDummyStoryResponse()
         val data: PagingData<ListStoryItem> = StoryPagingSource.snapshot(dummyStory)
         val expectedStory = MutableLiveData<PagingData<ListStoryItem>>()
-
         expectedStory.value = data
+        val token: String = "token"
+        Mockito.`when`(mockRepository.getStory(token)).thenReturn(expectedStory)
 
-        Mockito.`when`(mockRepository.getStory()).thenReturn(expectedStory)
         val mainViewModel = MainViewModel(mockRepository, mockApi)
-        val actualStory: PagingData<ListStoryItem> = mainViewModel.story.getOrAwaitValue()
+        val actualStory: PagingData<ListStoryItem> = mainViewModel.getStory(token).getOrAwaitValue()
 
         val differ = AsyncPagingDataDiffer(
             diffCallback = StoryAdapter.DIFF_CALLBACK,
@@ -71,10 +71,11 @@ class MainViewModelTest {
         val data: PagingData<ListStoryItem> = PagingData.from(emptyList())
         val expectedStory = MutableLiveData<PagingData<ListStoryItem>>()
         expectedStory.value = data
-        Mockito.`when`(mockRepository.getStory()).thenReturn(expectedStory)
+        val token: String = "token"
+        Mockito.`when`(mockRepository.getStory(token)).thenReturn(expectedStory)
 
         val mainViewModel = MainViewModel(mockRepository, mockApi)
-        val actualStory: PagingData<ListStoryItem> = mainViewModel.story.getOrAwaitValue()
+        val actualStory: PagingData<ListStoryItem> = mainViewModel.getStory(token).getOrAwaitValue()
 
         val differ = AsyncPagingDataDiffer(
             diffCallback = StoryAdapter.DIFF_CALLBACK,

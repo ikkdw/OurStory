@@ -58,9 +58,9 @@ open class Repository private constructor(
         return apiService.getStoriesWithLocation(token)
     }
 
-    fun getStory(): LiveData<PagingData<ListStoryItem>> {
+    fun getStory(token: String): LiveData<PagingData<ListStoryItem>> {
         val pagingSourceFactory = {
-            StoryPagingSource(apiService, token = "String")
+            StoryPagingSource(apiService, token)
         }
 
         return Pager(

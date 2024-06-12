@@ -23,8 +23,6 @@ class MainViewModel(private val repository: Repository, private val apiService: 
     private val _listStory = MutableLiveData<GetStoryResponse>()
     val listStory: MutableLiveData<GetStoryResponse> = _listStory
 
-    val story: LiveData<PagingData<ListStoryItem>> = repository.getStory().cachedIn(viewModelScope)
-
     fun getSession(): LiveData<UserModel> {
         return repository.getSession().asLiveData()
     }
