@@ -6,7 +6,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.dicoding.ourstory.data.Repository
-import com.dicoding.ourstory.data.remote.story.DetailStoryResponse
 import com.dicoding.ourstory.data.remote.story.Story
 import kotlinx.coroutines.launch
 

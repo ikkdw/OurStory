@@ -1,6 +1,7 @@
 package com.dicoding.ourstory.ui
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
@@ -28,6 +29,7 @@ import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
+import java.io.File
 
 class UploadActivity: AppCompatActivity() {
     private val viewModel by viewModels<AddStoryViewModel> {
@@ -112,13 +114,24 @@ class UploadActivity: AppCompatActivity() {
     }
 
 
+    @SuppressLint("SuspiciousIndentation")
     private fun uploadImage() {
         currentImageUri?.let { uri ->
-            val imageFile = uriToFile(uri, this).reduceFileImage()
-            Log.d("Image File", "showImage: ${imageFile.path}")
-            val description = binding.descriptionText.text.toString()
+            val imageFile: File? = try {
+                uriToFile(uri, this).reduceFileImage()
+            } catch (e: Exception) {
+                Log.e("UploadActivity", "Failed to convert Uri to File", e)
+                null
+            }
 
-            showLoading(true)
+            if (imageFile != null) {
+                val description = binding.descriptionText.text.toString()
+                if (description.isEmpty()) {
+                    showToast(getString(R.string.no_description_warning))
+                    return
+                }
+
+                showLoading(true)
 
             val requestBody = description.toRequestBody("text/plain".toMediaType())
             val requestImageFile = imageFile.asRequestBody("image/jpeg".toMediaType())
@@ -128,25 +141,27 @@ class UploadActivity: AppCompatActivity() {
                 requestImageFile
             )
 
-            CoroutineScope(Dispatchers.IO).launch {
-                try {
-                    viewModel.uploadStory(multipartBody, requestBody, token)
-                    withContext(Dispatchers.Main) {
-                        showLoading(true)
-                        val intent = Intent(this@UploadActivity, MainActivity::class.java)
-                        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
-                        startActivity(intent)
-                    }
-                } catch (e: Exception) {
-                    withContext(Dispatchers.Main) {
-                        showLoading(false)
-                        showToast("There is an error when uploading the image!")
+                CoroutineScope(Dispatchers.IO).launch {
+                    try {
+                        viewModel.uploadStory(multipartBody, requestBody, token)
+                        withContext(Dispatchers.Main) {
+                            showLoading(false)
+                            val intent = Intent(this@UploadActivity, MainActivity::class.java)
+                            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+                            startActivity(intent)
+                        }
+                    } catch (e: Exception) {
+                        withContext(Dispatchers.Main) {
+                            showLoading(false)
+                            showToast("There is an error when uploading the image!")
+                        }
                     }
                 }
+            } else {
+                showToast(getString(R.string.no_image_warning))
             }
         } ?: showToast(getString(R.string.no_image_warning))
     }
-
 
     private fun showLoading(isLoading: Boolean) {
         binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE

@@ -17,8 +17,6 @@ class MainViewModel(private val repository: Repository) : ViewModel() {
     private var _userToken: List<String> = emptyList()
     val userToken: String = _userToken.toString()
 
-//    val story: LiveData<PagingData<ListStoryItem>> = repository.getStory(userToken).cachedIn(viewModelScope)
-
     fun getSession(): LiveData<UserModel> {
         return repository.getSession().asLiveData()
     }

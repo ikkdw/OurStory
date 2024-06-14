@@ -49,12 +49,6 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-//    override fun onResume(){
-//        super.onResume()
-//        val token = "Bearer $token"
-//        getStory(token)
-//    }
-
     private fun setupView() {
         window.insetsController?.hide(WindowInsets.Type.statusBars())
         supportActionBar?.hide()
@@ -106,11 +100,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun getData(token: String) {
-//        lifecycleScope.launch {
-//            viewModel.getStory(token)
-//            Log.d("MainActivityToken", "token : $token")
-//        }
-
         val adapter = StoryAdapter()
         binding.rvStory.layoutManager = LinearLayoutManager(this)
         binding.rvStory.adapter = adapter

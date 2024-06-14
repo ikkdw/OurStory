@@ -29,4 +29,5 @@
     <string name="gallery">GALERI</string>
     <string name="upload">UNGGAH</string>
     <string name="no_image_warning">Tidak Ada Gambar Dipilih!</string>
+    <string name="no_description_warning">Tambahkan deskripsi terlebih dahulu!</string>
 </resources>

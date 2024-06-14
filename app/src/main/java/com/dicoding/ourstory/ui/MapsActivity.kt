@@ -2,9 +2,6 @@ package com.dicoding.ourstory.ui
 
 import android.content.pm.PackageManager
 import android.content.res.Resources
-import android.graphics.Bitmap
-import android.graphics.Canvas
-import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -12,11 +9,7 @@ import android.view.Menu
 import android.view.MenuItem
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
-import androidx.annotation.ColorInt
-import androidx.annotation.DrawableRes
 import androidx.core.content.ContextCompat
-import androidx.core.content.res.ResourcesCompat
-import androidx.core.graphics.drawable.DrawableCompat
 import com.dicoding.ourstory.R
 import com.dicoding.ourstory.data.remote.story.ListStoryItem
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -29,8 +22,6 @@ import com.dicoding.ourstory.databinding.ActivityMapsBinding
 import com.dicoding.ourstory.ui.viewmodel.MainViewModel
 import com.dicoding.ourstory.ui.viewmodel.MapsViewModel
 import com.dicoding.ourstory.ui.viewmodel.factory.ViewModelFactory
-import com.google.android.gms.maps.model.BitmapDescriptor
-import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLngBounds
 import com.google.android.gms.maps.model.MapStyleOptions
 
@@ -66,25 +57,25 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         mMap.uiSettings.isCompassEnabled = true
         mMap.uiSettings.isMapToolbarEnabled = true
 
-        mMap.setOnMapLongClickListener { latLng ->
-            mMap.addMarker(
-                MarkerOptions()
-                    .position(latLng)
-                    .title("New Marker")
-                    .snippet("Lat: ${latLng.latitude} Long: ${latLng.longitude}")
-                    .icon(vectorToBitmap(R.drawable.ic_baseline_person_24, Color.parseColor("#3DDC84")))
-            )
-        }
+//        mMap.setOnMapLongClickListener { latLng ->
+//            mMap.addMarker(
+//                MarkerOptions()
+//                    .position(latLng)
+//                    .title("New Marker")
+//                    .snippet("Lat: ${latLng.latitude} Long: ${latLng.longitude}")
+//                    .icon(vectorToBitmap(R.drawable.ic_baseline_person_24, Color.parseColor("#3DDC84")))
+//            )
+//        }
 
-        mMap.setOnPoiClickListener { pointOfInterest ->
-            val poiMarker = mMap.addMarker(
-                MarkerOptions()
-                    .position(pointOfInterest.latLng)
-                    .title(pointOfInterest.name)
-                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE))
-            )
-            poiMarker?.showInfoWindow()
-        }
+//        mMap.setOnPoiClickListener { pointOfInterest ->
+//            val poiMarker = mMap.addMarker(
+//                MarkerOptions()
+//                    .position(pointOfInterest.latLng)
+//                    .title(pointOfInterest.name)
+//                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE))
+//            )
+//            poiMarker?.showInfoWindow()
+//        }
         getMyLocation()
         mainViewModel.getSession().observe(this){user->
             mapsViewModel.getStoryLocation(user.token)
@@ -140,24 +131,6 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         } catch (exception: Resources.NotFoundException) {
             Log.e(TAG, "Can't find style. Error: ", exception)
         }
-    }
-
-    private fun vectorToBitmap(@DrawableRes id: Int, @ColorInt color: Int): BitmapDescriptor {
-        val vectorDrawable = ResourcesCompat.getDrawable(resources, id, null)
-        if (vectorDrawable == null) {
-            Log.e("BitmapHelper", "Resource not found")
-            return BitmapDescriptorFactory.defaultMarker()
-        }
-        val bitmap = Bitmap.createBitmap(
-            vectorDrawable.intrinsicWidth,
-            vectorDrawable.intrinsicHeight,
-            Bitmap.Config.ARGB_8888
-        )
-        val canvas = Canvas(bitmap)
-        vectorDrawable.setBounds(0, 0, canvas.width, canvas.height)
-        DrawableCompat.setTint(vectorDrawable, color)
-        vectorDrawable.draw(canvas)
-        return BitmapDescriptorFactory.fromBitmap(bitmap)
     }
 
     private val requestPermissionLauncher =
